@@ -5,7 +5,14 @@ const gameBoard = (() => {
       _board[i] = "";
     }
   }
+  const displayBoard = () => {
+    const spaces = document.querySelectorAll('.space');
+    for(let i = 0; i < 9; i++){
+      spaces[i].textContent = _board[i];
+    }
+  }
   return {
-    resetBoard
+    resetBoard,
+    displayBoard
   };
 })();
