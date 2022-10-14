@@ -14,6 +14,18 @@ body {
 
 .board {
   border: 2px solid black;
-  width: 500px;
+  min-width: 500px;
   height: 500px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.space {
+  background-color: lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8rem;
 }
