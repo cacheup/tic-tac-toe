@@ -90,30 +90,35 @@ const game = (() => {
   const _player2 = playerFactory("P2", "o");
   let _currentPlayer = _player1;
   let _count = 1;
-  const _spaces = document.querySelectorAll('.space');
-  _spaces.forEach(space => space.addEventListener('click', () => {
+  const _board = document.querySelectorAll('.space');
+  _board.forEach(space => space.addEventListener('click', () => {
     if(space.textContent == "") {
       _currentPlayer.markBoard(+space.getAttribute('id'));
       space.textContent = _currentPlayer.marker;
       if(gameBoard.isThreeinRow(+space.getAttribute('id'), _currentPlayer.marker)) {
         console.log(`${_currentPlayer.name} won!`);
-        resetGame();
+        _board.forEach(space => space.classList.add('disabled'));
         return;
       }
       if(_count == 9) {
         console.log('tie');
-        resetGame();
+        _board.forEach(space => space.classList.add('disabled'));
         return;
       }
       _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
       _count++;
     }
   }));
+  const newGameBtn = document.querySelector('button');
+  newGameBtn.addEventListener('click', () => {
+    resetGame();
+    gameBoard.displayBoard();
+    _board.forEach(space => space.classList.remove('disabled'));
+  });
   const resetGame = () => {
     _count = 1;
     _currentPlayer = _player1;
     gameBoard.resetBoard();
-    gameBoard.displayBoard();
   }
   return {
 
