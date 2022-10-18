@@ -97,16 +97,24 @@ const game = (() => {
       space.textContent = _currentPlayer.marker;
       if(gameBoard.isThreeinRow(+space.getAttribute('id'), _currentPlayer.marker)) {
         console.log(`${_currentPlayer.name} won!`);
+        resetGame();
         return;
       }
       if(_count == 9) {
         console.log('tie');
+        resetGame();
         return;
       }
       _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
       _count++;
     }
   }));
+  const resetGame = () => {
+    _count = 1;
+    _currentPlayer = _player1;
+    gameBoard.resetBoard();
+    gameBoard.displayBoard();
+  }
   return {
 
   }
