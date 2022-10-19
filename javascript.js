@@ -91,6 +91,7 @@ const game = (() => {
   let _currentPlayer = _player1;
   let _count = 1;
   const _board = document.querySelectorAll('.space');
+  _board.forEach(space => space.classList.add('disabled'));
   _board.forEach(space => space.addEventListener('click', () => {
     if(space.textContent == "") {
       _currentPlayer.markBoard(+space.getAttribute('id'));
@@ -111,16 +112,27 @@ const game = (() => {
   }));
   const newGameBtn = document.querySelector('button');
   newGameBtn.addEventListener('click', () => {
-    resetGame();
-    gameBoard.displayBoard();
-    _board.forEach(space => space.classList.remove('disabled'));
+    newGame();
   });
-  const resetGame = () => {
+  const _resetGame = () => {
     _count = 1;
     _currentPlayer = _player1;
     gameBoard.resetBoard();
+    gameBoard.displayBoard();
+    _board.forEach(space => space.classList.remove('disabled'));
+  }
+  const newGame = () => {
+    let player1Name = prompt("Enter player one name", "Player 1");
+    if(player1Name != null && player1Name != '') {
+      _player1.name = player1Name;
+    }
+    let player2Name = prompt("Enter player one name", "Player 2");
+    if(player2Name != null && player2Name != '') {
+      _player2.name = player2Name;
+    }
+    _resetGame();
   }
   return {
-
+    newGame
   }
 })();
