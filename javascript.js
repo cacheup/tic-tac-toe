@@ -90,6 +90,7 @@ const game = (() => {
   const _player2 = playerFactory("P2", "o");
   let _currentPlayer = _player1;
   let _count = 1;
+  const _result = document.querySelector('.result');
   const _board = document.querySelectorAll('.space');
   _board.forEach(space => space.classList.add('disabled'));
   _board.forEach(space => space.addEventListener('click', () => {
@@ -97,13 +98,13 @@ const game = (() => {
       _currentPlayer.markBoard(+space.getAttribute('id'));
       space.textContent = _currentPlayer.marker;
       if(gameBoard.isThreeinRow(+space.getAttribute('id'), _currentPlayer.marker)) {
-        console.log(`${_currentPlayer.name} won!`);
         _board.forEach(space => space.classList.add('disabled'));
+        _result.textContent = `${_currentPlayer.name} won!`;
         return;
       }
       if(_count == 9) {
-        console.log('tie');
         _board.forEach(space => space.classList.add('disabled'));
+        _result.textContent = "It's a tie!"
         return;
       }
       _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
@@ -122,11 +123,11 @@ const game = (() => {
     _board.forEach(space => space.classList.remove('disabled'));
   }
   const newGame = () => {
-    let player1Name = prompt("Enter player one name", "Player 1");
+    let player1Name = prompt("Enter player one name", `${_player1.name}`);
     if(player1Name != null && player1Name != '') {
       _player1.name = player1Name;
     }
-    let player2Name = prompt("Enter player one name", "Player 2");
+    let player2Name = prompt("Enter player one name", `${_player2.name}`);
     if(player2Name != null && player2Name != '') {
       _player2.name = player2Name;
     }

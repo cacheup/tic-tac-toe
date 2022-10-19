@@ -34,3 +34,9 @@ body {
 .disabled {
   pointer-events: none;
 }
+
+.result {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
