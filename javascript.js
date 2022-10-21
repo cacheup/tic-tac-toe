@@ -88,6 +88,7 @@ const playerFactory = (name, marker) => {
 const game = (() => {
   const _player1 = playerFactory("P1", "x");
   const _player2 = playerFactory("P2", "o");
+  const _computer = playerFactory("computer", "o");
   let _currentPlayer = _player1;
   let _count = 1;
   const _result = document.querySelector('.result');
