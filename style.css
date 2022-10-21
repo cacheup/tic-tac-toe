@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 body {
@@ -14,13 +16,12 @@ body {
 }
 
 .board {
-  border: 2px solid black;
   min-width: 500px;
   height: 500px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 13px;
 }
 
 .space {
@@ -28,7 +29,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 8rem;
+  font-size: 7rem;
+  border-radius: 4px;
 }
 
 .disabled {
@@ -39,4 +41,14 @@ body {
   height: 30px;
   display: flex;
   align-items: center;
+}
+
+button {
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(180, 179, 179);
 }

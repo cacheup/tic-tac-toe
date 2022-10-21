@@ -120,6 +120,7 @@ const game = (() => {
     _currentPlayer = _player1;
     gameBoard.resetBoard();
     gameBoard.displayBoard();
+    _result.textContent = "";
     _board.forEach(space => space.classList.remove('disabled'));
   }
   const newGame = () => {
