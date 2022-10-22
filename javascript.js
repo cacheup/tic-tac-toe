@@ -124,12 +124,37 @@ const game = (() => {
     _result.textContent = "";
     _board.forEach(space => space.classList.remove('disabled'));
   }
+  const _computerMove = () => {
+    let emptySpaces = [];
+    for(let i = 0; i < _board.length; i++) {
+      if(_board[i].textContent == '') {
+        emptySpaces.push(i);
+      }
+    }
+    for(let i = 0; i < emptySpaces.length; i++) {
+      if(gameBoard.isThreeinRow(emptySpaces[i], _computer.marker)) {
+        _computer.markBoard(emptySpaces[i]);
+        _board.forEach(space => space.classList.add('disabled'));
+        _result.textContent = `${_computer.name} won!`;
+        return;
+      }
+      if(gameBoard.isThreeinRow(emptySpaces[i], _player1.marker)) {
+        _computer.markBoard(emptySpaces[i]);
+        _board.forEach(space => space.classList.add('disabled'));
+        _result.textContent = `${_player1.name} won!`;
+        return;
+      }
+    }
+    _computer.markBoard(emptySpaces[Math.floor(Math.random()*emptySpaces.length)]);
+    gameBoard.displayBoard();
+    _count++;
+  }
   const newGame = () => {
     let player1Name = prompt("Enter player one name", `${_player1.name}`);
     if(player1Name != null && player1Name != '') {
       _player1.name = player1Name;
     }
-    let player2Name = prompt("Enter player one name", `${_player2.name}`);
+    let player2Name = prompt("Enter player two name", `${_player2.name}`);
     if(player2Name != null && player2Name != '') {
       _player2.name = player2Name;
     }
