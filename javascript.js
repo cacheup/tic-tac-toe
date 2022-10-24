@@ -91,6 +91,7 @@ const game = (() => {
   const _computer = playerFactory("computer", "o");
   let _currentPlayer = _player1;
   let _count = 1;
+  let _isVersusComputer = false;
   const _result = document.querySelector('.result');
   const _board = document.querySelectorAll('.space');
   _board.forEach(space => space.classList.add('disabled'));
@@ -105,15 +106,21 @@ const game = (() => {
       }
       if(_count == 9) {
         _board.forEach(space => space.classList.add('disabled'));
-        _result.textContent = "It's a tie!"
+        _result.textContent = "It's a tie!";
         return;
       }
-      _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
       _count++;
+      if(!_isVersusComputer) {
+        _currentPlayer = _currentPlayer == _player1 ? _player2 : _player1;
+      }
+      else {
+        _computerMove();
+      }
+
     }
   }));
-  const newGameBtn = document.querySelector('button');
-  newGameBtn.addEventListener('click', () => {
+  const _newGameBtn = document.querySelector('button');
+  _newGameBtn.addEventListener('click', () => {
     newGame();
   });
   const _resetGame = () => {
@@ -131,34 +138,48 @@ const game = (() => {
         emptySpaces.push(i);
       }
     }
+    let markedBoard = false;
     for(let i = 0; i < emptySpaces.length; i++) {
       if(gameBoard.isThreeinRow(emptySpaces[i], _computer.marker)) {
         _computer.markBoard(emptySpaces[i]);
+        gameBoard.displayBoard();
         _board.forEach(space => space.classList.add('disabled'));
         _result.textContent = `${_computer.name} won!`;
         return;
       }
       if(gameBoard.isThreeinRow(emptySpaces[i], _player1.marker)) {
         _computer.markBoard(emptySpaces[i]);
-        _board.forEach(space => space.classList.add('disabled'));
-        _result.textContent = `${_player1.name} won!`;
-        return;
+        markedBoard = true;
+        break;
       }
     }
-    _computer.markBoard(emptySpaces[Math.floor(Math.random()*emptySpaces.length)]);
+    if(markedBoard == false) {
+      _computer.markBoard(emptySpaces[Math.floor(Math.random()*emptySpaces.length)]);
+    }
     gameBoard.displayBoard();
+    if(_count == 9) {
+      _board.forEach(space => space.classList.add('disabled'));
+      _result.textContent = "It's a tie!";
+      return;
+    }
     _count++;
   }
   const newGame = () => {
+    _isVersusComputer = confirm("Do you wish to play against computer?");
     let player1Name = prompt("Enter player one name", `${_player1.name}`);
     if(player1Name != null && player1Name != '') {
       _player1.name = player1Name;
     }
-    let player2Name = prompt("Enter player two name", `${_player2.name}`);
-    if(player2Name != null && player2Name != '') {
-      _player2.name = player2Name;
+    if(_isVersusComputer == false) {
+      let player2Name = prompt("Enter player two name", `${_player2.name}`);
+      if(player2Name != null && player2Name != '') {
+       _player2.name = player2Name;
+      }
     }
     _resetGame();
+    if(_isVersusComputer) {
+      _computerMove();
+    }
   }
   return {
     newGame

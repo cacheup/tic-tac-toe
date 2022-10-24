@@ -28,7 +28,6 @@ body {
   background-color: lightgrey;
   display: flex;
   justify-content: center;
-  align-items: center;
   font-size: 7rem;
   border-radius: 4px;
 }
